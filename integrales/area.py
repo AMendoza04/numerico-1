@@ -1,10 +1,12 @@
 import math
+import numpy as np
+import matplotlib.pyplot as plt
 
 def f(x):
-    return x**3 - x*x
+    return math.e**x
 
 def g(x):
-    return x/2
+    return -x*x +4
 
 def altura(x):
     return math.fabs(f(x) - g(x))
@@ -22,5 +24,29 @@ def area(a , b , h):
 
     return acum
 
-print(area( -0.36602540378  , 1.36602540378 , 0.001))
 
+def plotear(ini , fin ):
+    x = np.arange(ini,fin, 0.01)
+    y1 = []
+    y2 = []
+    for i in range(len(x)):
+        y1.append(f(x[i]))
+        y2.append(g(x[i]))
+
+    fig, ax = plt.subplots()
+    ax.plot(x, y1, x, y2, color='black')
+    ax.fill_between(x, y1, y2, where=y2 >= y1, facecolor='green', interpolate=True)
+    ax.fill_between(x, y1, y2, where=y2 <= y1, facecolor='green', interpolate=True)
+    ax.set_title('area entre las dos funciones')
+
+    plt.show()
+
+
+
+def main():
+    ini = float(input("Valor inicial: "))
+    fin = float(input("Valor final: "))
+    print(area(ini, fin, 0.00001))
+    plotear(ini , fin)
+
+main()
